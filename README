@@ -9,9 +9,9 @@ make use of the two SWORD functions:
  - GETting a Service Document
  - POSTing a file into a repository
 
-The library has been written by Stuart Lewis (stuart@stuartlewis.com) as part
-of the JISC funded SWORD2 project. Limited support for the library is availble
-via the sword-app-tech email list:
+The library was originally written by Stuart Lewis (stuart@stuartlewis.com) as
+part of the JISC funded SWORD2 project. Limited support for the library is
+availble via the sword-app-tech email list:
 
  - https://lists.sourceforge.net/lists/listinfo/sword-app-tech
 
