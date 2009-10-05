@@ -44,7 +44,7 @@
 	$test_statusstatement = 'http://purl.org/eprint/status/PeerReviewed';
 
 	// File name
-	$test_file = 'SWORDAriadneJan2008.pdf';
+	$test_file = 'SWORD Ariadne Jan 2008.pdf';
 
 	// MIME type of file
 	$test_mimetype = 'application/pdf';
@@ -62,8 +62,7 @@
 	$test_packager->setStatusStatement($test_statusstatement);
 	$test_packager->setCopyrightHolder($test_copyrightholder);
 	$test_packager->setCitation($test_citation);
-	$test_packager->addFile($test_file1, $test_mimetype1);
-	$test_packager->addFile($test_file2, $test_mimetype2);
+	$test_packager->addFile($test_file, $test_mimetype);
 
 	$test_packager->create();
 ?>
