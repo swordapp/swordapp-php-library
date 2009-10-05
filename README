@@ -82,7 +82,7 @@ Example SWORD applications are included in the examples directory:
 
 Changes
 -------
-0.9 (xx xx 2009)
+0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a
    proper package
  - Added some validation to the SWAP/METS packager to allow it to cope with
