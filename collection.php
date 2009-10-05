@@ -41,7 +41,7 @@ class Collection {
 	// Add a new supported packaging type
 	function addAcceptPackaging($ap) {
 		$format = (string)$ap[0];
-		$q = (string)$ap[0][q];
+		$q = (string)$ap[0]['q'];
 		if (empty($q)) {
 			$q = "1.0";
 		}

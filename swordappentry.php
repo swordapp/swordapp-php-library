@@ -139,7 +139,7 @@ class SWORDAPPEntry {
 		// Store the generator
 		$this->sac_generator = sac_clean($sac_dr->children($sac_ns['atom'])->generator);
 		$sac_gen = $sac_dr->xpath("atom:generator");
-		$this->sac_generator_uri = $sac_gen[0]['uri'];
+		if (!empty($sac_gen)) { $this->sac_generator_uri = $sac_gen[0]['uri']; }
 
 		// Store the user agent
 		$this->sac_useragent = sac_clean($sac_dr->children($sac_ns['sword'])->userAgent);

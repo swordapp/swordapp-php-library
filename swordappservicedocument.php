@@ -4,6 +4,9 @@ require_once('workspace.php');
 
 class SWORDAPPServiceDocument {
 
+	// The URL of this Service Document
+	public $sac_url;
+	
 	// The HTTP status code returned
 	public $sac_status;
 	
@@ -29,7 +32,10 @@ class SWORDAPPServiceDocument {
 	public $sac_workspaces;
 
 	// Construct a new servicedocument by passing in the http status code
-	function __construct($sac_newstatus, $sac_thexml) {
+	function __construct($sac_theurl, $sac_newstatus, $sac_thexml = '') {
+		// Store the URL
+		$this->sac_url = $sac_theurl;
+		
 		// Store the status
 		$this->sac_status = $sac_newstatus;
 		
@@ -51,16 +57,24 @@ class SWORDAPPServiceDocument {
 				$this->sac_statusmessage = "Unknown erorr (status code " . $this->sac_status . ")";
 				break;
 		}
-	}
-
-	// Build the workspace hierarchy
-	function buildhierarchy($sac_ws, $sac_ns) {
-		// Build the workspaces
-		foreach ($sac_ws as $sac_workspace) {
-			$sac_newworkspace = new Workspace(
-			                    $sac_workspace->children($sac_ns['atom'])->title);
-			$sac_newworkspace->buildhierarchy($sac_workspace->children($sac_ns['app']), $sac_ns);
-			$this->sac_workspaces[] = $sac_newworkspace;
+		
+		// Parse the xml if there is some
+		if ($sac_thexml != '') {
+			$sac_xml = @new SimpleXMLElement($sac_thexml);
+        	        $sac_ns = $sac_xml->getNamespaces(true);
+			$this->sac_version = $sac_xml->children($sac_ns['sword'])->version;
+	                $this->sac_verbose = $sac_xml->children($sac_ns['sword'])->verbose;
+        	        $this->sac_noop = $sac_xml->children($sac_ns['sword'])->noOp;
+                	$this->sac_maxuploadsize = $sac_xml->children($sac_ns['sword'])->maxUploadSize;
+				
+			// Build the workspaces
+			$sac_ws = $sac_xml->children($sac_ns['app']);
+			foreach ($sac_ws as $sac_workspace) {
+				$sac_newworkspace = new Workspace(
+			        	            $sac_workspace->children($sac_ns['atom'])->title);
+				$sac_newworkspace->buildhierarchy($sac_workspace->children($sac_ns['app']), $sac_ns);
+				$this->sac_workspaces[] = $sac_newworkspace;
+			}
 		}
 	}
 }

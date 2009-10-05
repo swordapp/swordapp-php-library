@@ -87,6 +87,12 @@ Changes
    proper package
  - Added some validation to the SWAP/METS packager to allow it to cope with
    filenames containing ampersands
+ - Changed swordappservicedocument to build the servcedocument from the xml
+   response rather than having the swordappclient do the work. This allows
+   the service document to be parsed at a later time.
+ - Changed the swordappclient deposit method to stream the file being
+   deposited straight from disk rather than via memory to avoid using
+   excessive memory and potentially exceeding the PHP memory limit.
 
 0.8 (28th July 2009)
  - Added example IMAP email application (/examples/imap-email/imap-email.php)

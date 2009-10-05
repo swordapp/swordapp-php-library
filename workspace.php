@@ -27,7 +27,7 @@ class Workspace {
 			// The location of the service document
 			//var_dump($sac_colls);
 			$href = $sac_collection->xpath("@href");
-			$sac_newcollection->sac_href = $href[0][href];
+			$sac_newcollection->sac_href = $href[0]['href'];
 			
 			// An array of the accepted deposit types
 			foreach ($sac_collection->accept as $sac_accept) {
@@ -43,7 +43,10 @@ class Workspace {
 			$sac_newcollection->sac_collpolicy = sac_clean($sac_collection->children($sac_ns['sword'])->collectionPolicy);
 			
 			// Add the collection abstract
-			$sac_newcollection->sac_abstract = sac_clean($sac_collection->children($sac_ns['dcterms'])->abstract);
+			// Check if dcterms is in the known namspaces. If not, might not be an abstract
+			if (array_key_exists('dcterms', $sac_ns)) {
+				$sac_newcollection->sac_abstract = sac_clean($sac_collection->children($sac_ns['dcterms'])->abstract);
+			}
 
 			// Find out if mediation is allowed
 			if ($sac_collection->children($sac_ns['sword'])->mediation == 'true') {

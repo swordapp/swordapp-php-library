@@ -34,25 +34,15 @@ class SWORDAPPClient {
 		curl_close($sac_curl);
 		
 		// Parse the result
-		$sac_sdresponse = new SWORDAPPServiceDocument($sac_status, $sac_resp);
-
-		// Was it a succesful result?
 		if ($sac_status == 200) {
-			// Get the server settings
-		        try {
-				$sac_xml = @new SimpleXMLElement($sac_resp);
-		        	$sac_ns = $sac_xml->getNamespaces(true);
-		        	$sac_sdresponse->sac_version = $sac_xml->children($sac_ns['sword'])->version;
-		        	$sac_sdresponse->sac_verbose = $sac_xml->children($sac_ns['sword'])->verbose;
-				$sac_sdresponse->sac_noop = $sac_xml->children($sac_ns['sword'])->noOp;
-				$sac_sdresponse->sac_maxuploadsize = $sac_xml->children($sac_ns['sword'])->maxUploadSize;
-
-				// Build the workspace / collection object hierarchy
-				$sac_sdresponse->buildhierarchy($sac_xml->children($sac_ns['app']), $sac_ns);
+			try {
+				$sac_sdresponse = new SWORDAPPServiceDocument($sac_url, $sac_status, $sac_resp);
 			} catch (Exception $e) {
-			    throw new Exception("Error parsing service document (" . $e->getMessage() . ")");
-			}
-		}
+                		throw new Exception("Error parsing service document (" . $e->getMessage() . ")");
+                	}
+		} else {
+			$sac_sdresponse = new SWORDAPPServiceDocument($sac_url, $sac_status);
+		}	
 
 		// Return the servicedocument object
 		return $sac_sdresponse;
@@ -64,9 +54,6 @@ class SWORDAPPClient {
 	                 $sac_packaging= '', $sac_contenttype = '', 
 			 $sac_noop = false, $sac_verbose = false) {
 		// Perform the deposit
-		$sac_fp = fopen($sac_fname, 'r');
-		$sac_postdata = fread($sac_fp, filesize($sac_fname));
-		fclose($sac_fp); 
 		$sac_curl = curl_init();
 
 		// To see debugging infomation, un-comment the following line
@@ -107,8 +94,10 @@ class SWORDAPPClient {
                         $sac_filename_trimmed = $sac_fname;
 	        }
 		array_push($headers, "Content-Disposition: filename=" . $sac_fname_trimmed);
+		curl_setopt($sac_curl, CURLOPT_READDATA, fopen($sac_fname, 'rb'));
+		array_push($headers, 'Transfer-Encoding: chunked');
 	        curl_setopt($sac_curl, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($sac_curl, CURLOPT_POSTFIELDS, $sac_postdata);
+		
 		$sac_resp = curl_exec($sac_curl);
 	        $sac_status = curl_getinfo($sac_curl, CURLINFO_HTTP_CODE);
 		curl_close($sac_curl);
