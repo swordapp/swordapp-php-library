@@ -1,6 +1,6 @@
 Welcome to the SWORDAPP PHP client library!
 -------------------------------------------
-Version: 0.8
+Version: 0.9
 
 The SWORDAPP PHP client library is a PHP library designed to assist with the
 creation of SWORD deposit tools. The client library allows PHP code to easily
