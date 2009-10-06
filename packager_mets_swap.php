@@ -47,6 +47,9 @@ class PackagerMetsSwap {
     // Bibliographic citation
     public $sac_citation;
 
+    // Language
+    public $sac_language;
+
     // File name
     public $sac_files;
 
@@ -102,6 +105,10 @@ class PackagerMetsSwap {
 
     function setCitation($sac_thecitation) {
         $this->sac_citation = $this->clean($sac_thecitation);
+    }
+
+    function setLanguage($sac_thelanguage) {
+        $this->sac_language = $this->clean($sac_thelanguage);
     }
 
     function setDateAvailable($sac_thedta) {
@@ -199,10 +206,12 @@ class PackagerMetsSwap {
                                  "http://purl.org/dc/elements/1.1/type", 
                          "http://purl.org/eprint/entityType/Expression");    
         
-        $this->statementVesURI($fh, 
+        if (isset($this->sac_language)) {
+	    $this->statementVesURI($fh, 
                                "http://purl.org/dc/elements/1.1/language",
                        "http://purl.org/dc/terms/RFC3066",
-                       $this->valueString("en"));    
+                       $this->valueString($this->sac_language));   
+	}
         
         $this->statementVesURIValueURI($fh, 
                                        "http://purl.org/dc/elements/1.1/type",

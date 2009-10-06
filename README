@@ -82,6 +82,10 @@ Example SWORD applications are included in the examples directory:
 
 Changes
 -------
+1.0 (dd mm yyyy)
+ - Removed hard coded language from SWAP/METS packager. Can now be set
+   by setLanguage function.
+
 0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a
    proper package
