@@ -18,7 +18,7 @@ availble via the sword-app-tech email list:
 
 Licence
 -------
-The library is licenced with a BSD licence. See the file LICENCE in the
+The library is licenced with the New BSD Licence. See the file LICENCE in the
 distribution directory.
 
 
@@ -87,6 +87,7 @@ Changes
    by setLanguage function.
  - Fixed issue with chunked encoding and the lack of a Content-Length header
    when depositing to Apache-based servers
+ - Clarified wording of licence used in README
 
 0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a
