@@ -126,7 +126,7 @@ class PackagerMetsSwap {
         $fh = @fopen($this->sac_root_in . '/' . $this->sac_dir_in . '/' . $this->sac_metadata_filename, 'w');
         if (!$fh) {
             throw new Exception("Error writing metadata file (" . 
-                                $this->sac_root_in . '/' . $this->sac_dir_in . $this->sac_metadata_filename . ")");
+                                $this->sac_root_in . '/' . $this->sac_dir_in . '/' . $this->sac_metadata_filename . ")");
         }
         $this->writeHeader($fh);
         $this->writeDmdSec($fh);

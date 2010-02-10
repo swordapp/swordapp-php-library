@@ -88,6 +88,8 @@ Changes
  - Fixed issue with chunked encoding and the lack of a Content-Length header
    when depositing to Apache-based servers
  - Clarified wording of licence used in README
+ - Fixed typo in error reporting of filename in pacakger_mets_swap.php
+   (Thanks to Alec Smecher)
 
 0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a
