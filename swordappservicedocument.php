@@ -68,11 +68,11 @@ class SWORDAPPServiceDocument {
                 	$this->sac_maxuploadsize = $sac_xml->children($sac_ns['sword'])->maxUploadSize;
 				
 			// Build the workspaces
-			$sac_ws = $sac_xml->children($sac_ns['app']);
+			$sac_ws = @$sac_xml->children($sac_ns['app']);
 			foreach ($sac_ws as $sac_workspace) {
 				$sac_newworkspace = new Workspace(
 			        	            $sac_workspace->children($sac_ns['atom'])->title);
-				$sac_newworkspace->buildhierarchy($sac_workspace->children($sac_ns['app']), $sac_ns);
+				$sac_newworkspace->buildhierarchy(@$sac_workspace->children($sac_ns['app']), $sac_ns);
 				$this->sac_workspaces[] = $sac_newworkspace;
 			}
 		}
