@@ -67,6 +67,9 @@ class SWORDAPPEntry {
 			case 201:
 				$this->sac_statusmessage = "Created";
 				break;
+			case 202:
+				$this->sac_statusmessage = "Accepted";
+				break;
 			case 401:
 				$this->sac_statusmessage = "Unauthorized";
 				break;
