@@ -90,6 +90,8 @@ Changes
  - Clarified wording of licence used in README
  - Fixed typo in error reporting of filename in pacakger_mets_swap.php
    (Thanks to Alec Smecher)
+ - Fixed setting of Type in packager_mets_swap.php
+   (Thanks to Andrea Schweer)
 
 0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a

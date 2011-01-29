@@ -159,6 +159,15 @@ class PackagerMetsSwap {
     }
 
     function writeDmdSec($fh) {
+        fwrite($fh, "<amdSec ID=\"admin\">\n");
+        fwrite($fh, "<rightsMD ID=\"sword-mets-rmd-1\" GROUPID=\"sword-mets-rmd-1_group-1\">\n");
+        fwrite($fh, "<mdWrap MIMETEXT=\"text/plain\" MDTYPE=\"OTHER\" OTHERMDTYPE=\"EPDCX\">\n");
+        fwrite($fh, "<binData>\n");
+        fwrite($fh, base64_encode("HELLO - you can read me if you like!") . "\n");
+        fwrite($fh, "</binData>\n");
+        fwrite($fh, "</mdWrap>\n");
+        fwrite($fh, "</rightsMD>\n</amdSec>\n");
+
         fwrite($fh, "<dmdSec ID=\"sword-mets-dmd-1\" GROUPID=\"sword-mets-dmd-1_group-1\">\n");
         fwrite($fh, "<mdWrap LABEL=\"SWAP Metadata\" MDTYPE=\"OTHER\" OTHERMDTYPE=\"EPDCX\" MIMETYPE=\"text/xml\">\n");
         fwrite($fh, "<xmlData>\n");
@@ -166,21 +175,22 @@ class PackagerMetsSwap {
         fwrite($fh, "<epdcx:description epdcx:resourceId=\"sword-mets-epdcx-1\">\n");
 
         if (isset($this->sac_type)) {
-            $this->statementValueURI($fh, 
-                                     "http://purl.org/dc/elements/1.1/type", 
-                             $this->sac_type);    
+            $this->statementVesURIValueURI($fh, 
+                                           "http://purl.org/dc/elements/1.1/type",
+                                           "http://purl.org/eprint/terms/Type",
+                                           $this->sac_type);
         }
 
         if (isset($this->sac_title)) {
             $this->statement($fh, 
                              "http://purl.org/dc/elements/1.1/title", 
-                     $this->valueString($this->sac_title));    
+                             $this->valueString($this->sac_title));
         }
 
         if (isset($this->sac_abstract)) {
             $this->statement($fh, 
-                             "http://purl.org/dc/terms/abstract", 
-                     $this->valueString($this->sac_abstract));    
+                             "http://purl.org/dc/terms/abstract",
+                             $this->valueString($this->sac_abstract));
         }
 
         foreach ($this->sac_creators as $sac_creator) {
@@ -267,7 +277,7 @@ class PackagerMetsSwap {
 
     function writeStructMap($fh) {
         fwrite($fh, "\t<structMap ID=\"sword-mets-struct-1\" LABEL=\"structure\" TYPE=\"LOGICAL\">\n");
-        fwrite($fh, "\t\t<div ID=\"sword-mets-div-1\" DMDID=\"sword-mets-dmd-1\" TYPE=\"SWORD Object\">\n");
+        fwrite($fh, "\t\t<div ID=\"sword-mets-div-1\" ADMID=\"admin\"  DMDID=\"sword-mets-dmd-1\" TYPE=\"SWORD Object\">\n");
         fwrite($fh, "\t\t\t<div ID=\"sword-mets-div-2\" TYPE=\"File\">\n");
         for ($i = 0; $i < $this->sac_filecount; $i++) {
             fwrite($fh, "\t\t\t\t<fptr FILEID=\"sword-mets-file-" . $i . "\" />\n");
