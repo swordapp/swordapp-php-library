@@ -92,6 +92,8 @@ Changes
    (Thanks to Alec Smecher)
  - Fixed setting of Type in packager_mets_swap.php
    (Thanks to Andrea Schweer)
+ - Added option to store dcterms subject in package
+   (Thanks to James Verity Clemence)
 
 0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a
