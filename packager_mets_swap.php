@@ -25,9 +25,12 @@ class PackagerMetsSwap {
 
     // The abstract of the item
     public $sac_abstract;
-    
+
     // Creators
     public $sac_creators;
+
+    // Subjects
+    public $sac_subjects;
 
     // Identifier
     public $sac_identifier;
@@ -66,6 +69,7 @@ class PackagerMetsSwap {
         $this->sac_root_out = $sac_rootout;
         $this->sac_file_out = $sac_fileout;
         $this->sac_creators = array();
+        $this->sac_sujects = array();
         $this->sac_files = array();
         $this->sac_mimetypes = array();
         $this->sac_filecount = 0;
@@ -86,7 +90,11 @@ class PackagerMetsSwap {
     function addCreator($sac_creator) {
         array_push($this->sac_creators, $this->clean($sac_creator));
     }
-    
+
+    function addSubject($sac_subject) {
+        array_push($this->sac_subjects, $this->clean($sac_subject));
+    }
+
     function setIdentifier($sac_theidentifier) {
         $this->sac_identifier = $sac_theidentifier;
     }
@@ -194,15 +202,21 @@ class PackagerMetsSwap {
         }
 
         foreach ($this->sac_creators as $sac_creator) {
-            $this->statement($fh, 
-                             "http://purl.org/dc/elements/1.1/creator", 
-                     $this->valueString($sac_creator));    
+            $this->statement($fh,
+                             "http://purl.org/dc/elements/1.1/creator",
+                             $this->valueString($sac_creator));
+        }
+
+        foreach ($this->sac_subjects as $sac_subject) {
+            $this->statement($fh,
+                             "http://purl.org/dc/elements/1.1/subject",
+                             $this->valueString($sac_subject));    
         }
 
         if (isset($this->sac_identifier)) {
             $this->statement($fh, 
                              "http://purl.org/dc/elements/1.1/identifier", 
-                     $this->valueString($this->sac_identifier));    
+                             $this->valueString($this->sac_identifier));
         }
 
         fwrite($fh, "<epdcx:statement epdcx:propertyURI=\"http://purl.org/eprint/terms/isExpressedAs\" " .
