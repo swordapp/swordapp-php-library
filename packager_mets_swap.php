@@ -69,7 +69,7 @@ class PackagerMetsSwap {
         $this->sac_root_out = $sac_rootout;
         $this->sac_file_out = $sac_fileout;
         $this->sac_creators = array();
-        $this->sac_sujects = array();
+        $this->sac_subjects = array();
         $this->sac_files = array();
         $this->sac_mimetypes = array();
         $this->sac_filecount = 0;
