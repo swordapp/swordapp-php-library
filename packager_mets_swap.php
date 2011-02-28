@@ -59,8 +59,15 @@ class PackagerMetsSwap {
     // MIME type
     public $sac_mimetypes;
 
+    // Provenances
+    public $sac_provenances;
+
+    // Provenances
+    public $sac_rights;
+
     // Number of files added
     public $sac_filecount;
+
 
     function __construct($sac_rootin, $sac_dirin, $sac_rootout, $sac_fileout) {
         // Store the values
@@ -72,6 +79,8 @@ class PackagerMetsSwap {
         $this->sac_subjects = array();
         $this->sac_files = array();
         $this->sac_mimetypes = array();
+        $this->sac_provenances = array();
+        $this->sac_rights = array();
         $this->sac_filecount = 0;
     }
 
@@ -93,6 +102,14 @@ class PackagerMetsSwap {
 
     function addSubject($sac_subject) {
         array_push($this->sac_subjects, $this->clean($sac_subject));
+    }
+
+    function addProvenance($sac_provenance) {
+        array_push($this->sac_provenances, $this->clean($sac_provenance));
+    }
+
+    function addRights($sac_right) {
+        array_push($this->sac_rights, $this->clean($sac_right));
     }
 
     function setIdentifier($sac_theidentifier) {
@@ -210,17 +227,29 @@ class PackagerMetsSwap {
         foreach ($this->sac_subjects as $sac_subject) {
             $this->statement($fh,
                              "http://purl.org/dc/elements/1.1/subject",
-                             $this->valueString($sac_subject));    
+                             $this->valueString($sac_subject));
+        }
+
+        foreach ($this->sac_provenances as $sac_provenance) {
+            $this->statement($fh,
+                             "http://purl.org/dc/terms/provenance",
+                             $this->valueString($sac_provenance));
+        }
+
+        foreach ($this->sac_rights as $sac_right) {
+            $this->statement($fh,
+                             "http://purl.org/dc/terms/rights",
+                             $this->valueString($sac_right));
         }
 
         if (isset($this->sac_identifier)) {
-            $this->statement($fh, 
+            $this->statement($fh,
                              "http://purl.org/dc/elements/1.1/identifier", 
                              $this->valueString($this->sac_identifier));
         }
 
         fwrite($fh, "<epdcx:statement epdcx:propertyURI=\"http://purl.org/eprint/terms/isExpressedAs\" " .
-                "epdcx:valueRef=\"sword-mets-expr-1\" />\n");
+                    "epdcx:valueRef=\"sword-mets-expr-1\" />\n");
 
         fwrite($fh, "</epdcx:description>\n");
         
@@ -228,44 +257,44 @@ class PackagerMetsSwap {
         
         $this->statementValueURI($fh, 
                                  "http://purl.org/dc/elements/1.1/type", 
-                         "http://purl.org/eprint/entityType/Expression");    
+                                 "http://purl.org/eprint/entityType/Expression");
         
         if (isset($this->sac_language)) {
 	    $this->statementVesURI($fh, 
                                "http://purl.org/dc/elements/1.1/language",
-                       "http://purl.org/dc/terms/RFC3066",
-                       $this->valueString($this->sac_language));   
-	}
+                               "http://purl.org/dc/terms/RFC3066",
+                                $this->valueString($this->sac_language));
+    	}
         
         $this->statementVesURIValueURI($fh, 
                                        "http://purl.org/dc/elements/1.1/type",
-                               "http://purl.org/eprint/terms/Type",
-                           "http://purl.org/eprint/entityType/Expression");    
+                                       "http://purl.org/eprint/terms/Type",
+                                       "http://purl.org/eprint/entityType/Expression");
     
         if (isset($this->sac_dateavailable)) {
             $this->statement($fh, 
                              "http://purl.org/dc/terms/available",
-                         $this->valueStringSesURI("http://purl.org/dc/terms/W3CDTF",
-                                              $this->sac_dateavailable));    
+                             $this->valueStringSesURI("http://purl.org/dc/terms/W3CDTF",
+                             $this->sac_dateavailable));
         }
 
         if (isset($this->sac_statusstatement)) {
             $this->statementVesURIValueURI($fh, 
                                            "http://purl.org/eprint/terms/Status",
-                                   "http://purl.org/eprint/terms/Status",
-                                   $this->sac_statusstatement);    
+                                           "http://purl.org/eprint/terms/Status",
+                                           $this->sac_statusstatement);
         }
 
         if (isset($this->sac_copyrightholder)) {
             $this->statement($fh, 
                              "http://purl.org/eprint/terms/copyrightHolder", 
-                     $this->valueString($this->sac_copyrightholder));
+                             $this->valueString($this->sac_copyrightholder));
         }
 
         if (isset($this->sac_citation)) {
             $this->statement($fh, 
                              "http://purl.org/eprint/terms/bibliographicCitation", 
-                     $this->valueString($this->sac_citation));
+                             $this->valueString($this->sac_citation));
         }
 
         fwrite($fh, "</epdcx:description>\n");
@@ -342,7 +371,7 @@ class PackagerMetsSwap {
     }
 
     function clean($data) {
-            return str_replace('&#039;', '&apos;', htmlspecialchars($data, ENT_QUOTES));
+        return str_replace('&#039;', '&apos;', htmlspecialchars($data, ENT_QUOTES));
     }
 }
 ?>
