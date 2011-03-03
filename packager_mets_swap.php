@@ -184,15 +184,6 @@ class PackagerMetsSwap {
     }
 
     function writeDmdSec($fh) {
-        fwrite($fh, "<amdSec ID=\"admin\">\n");
-        fwrite($fh, "<rightsMD ID=\"sword-mets-rmd-1\" GROUPID=\"sword-mets-rmd-1_group-1\">\n");
-        fwrite($fh, "<mdWrap MIMETEXT=\"text/plain\" MDTYPE=\"OTHER\" OTHERMDTYPE=\"EPDCX\">\n");
-        fwrite($fh, "<binData>\n");
-        fwrite($fh, base64_encode("HELLO - you can read me if you like!") . "\n");
-        fwrite($fh, "</binData>\n");
-        fwrite($fh, "</mdWrap>\n");
-        fwrite($fh, "</rightsMD>\n</amdSec>\n");
-
         fwrite($fh, "<dmdSec ID=\"sword-mets-dmd-1\" GROUPID=\"sword-mets-dmd-1_group-1\">\n");
         fwrite($fh, "<mdWrap LABEL=\"SWAP Metadata\" MDTYPE=\"OTHER\" OTHERMDTYPE=\"EPDCX\" MIMETYPE=\"text/xml\">\n");
         fwrite($fh, "<xmlData>\n");
@@ -303,6 +294,15 @@ class PackagerMetsSwap {
         fwrite($fh, "</xmlData>\n");
         fwrite($fh, "</mdWrap>\n");
         fwrite($fh, "</dmdSec>\n");
+
+        //fwrite($fh, "<amdSec ID=\"admin\">\n");
+        //fwrite($fh, "<rightsMD ID=\"sword-mets-rmd-1\" GROUPID=\"sword-mets-rmd-1_group-1\">\n");
+        //fwrite($fh, "<mdWrap MIMETYPE=\"text/plain\" MDTYPE=\"OTHER\" OTHERMDTYPE=\"EPDCX\">\n");
+        //fwrite($fh, "<binData>\n");
+        //fwrite($fh, base64_encode("HELLO - you can read me if you like!") . "\n");
+        //fwrite($fh, "</binData>\n");
+        //fwrite($fh, "</mdWrap>\n");
+        //fwrite($fh, "</rightsMD>\n</amdSec>\n");        
     }
 
     function writeFileGrp($fh) {
@@ -320,7 +320,7 @@ class PackagerMetsSwap {
 
     function writeStructMap($fh) {
         fwrite($fh, "\t<structMap ID=\"sword-mets-struct-1\" LABEL=\"structure\" TYPE=\"LOGICAL\">\n");
-        fwrite($fh, "\t\t<div ID=\"sword-mets-div-1\" ADMID=\"admin\"  DMDID=\"sword-mets-dmd-1\" TYPE=\"SWORD Object\">\n");
+        fwrite($fh, "\t\t<div ID=\"sword-mets-div-1\" DMDID=\"sword-mets-dmd-1\" TYPE=\"SWORD Object\">\n");
         fwrite($fh, "\t\t\t<div ID=\"sword-mets-div-2\" TYPE=\"File\">\n");
         for ($i = 0; $i < $this->sac_filecount; $i++) {
             fwrite($fh, "\t\t\t\t<fptr FILEID=\"sword-mets-file-" . $i . "\" />\n");

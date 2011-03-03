@@ -95,6 +95,8 @@ Changes
  - Added option to store dcterms subject in package
    (Thanks to James Verity Clemence)
  - Added options to store provenance and rights information in package
+ - Fixing invalid METS packages
+   (Thanks to Gareth Waller)
 
 0.9 (5th October 2009)
  - Fixed typos in test-packager-mets_swap.php that meant it didn't create a
