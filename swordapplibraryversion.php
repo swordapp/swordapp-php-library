@@ -1,3 +1,3 @@
 <?php
-	$sal_version = "0.9";
+	$sal_version = "1.0";
 ?>
