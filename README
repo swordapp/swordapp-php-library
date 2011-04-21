@@ -1,6 +1,6 @@
 Welcome to the SWORDAPP PHP client library!
 -------------------------------------------
-Version: 0.9
+Version: 1.0
 
 The SWORDAPP PHP client library is a PHP library designed to assist with the
 creation of SWORD deposit tools. The client library allows PHP code to easily
@@ -82,7 +82,7 @@ Example SWORD applications are included in the examples directory:
 
 Changes
 -------
-1.0 (dd mm yyyy)
+1.0 (21 April 2011)
  - Removed hard coded language from SWAP/METS packager. Can now be set
    by setLanguage function.
  - Fixed issue with chunked encoding and the lack of a Content-Length header
