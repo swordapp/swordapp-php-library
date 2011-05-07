@@ -82,6 +82,9 @@ Example SWORD applications are included in the examples directory:
 
 Changes
 -------
+1.1 (dd mmmm yyyy)
+ - 
+
 1.0 (21 April 2011)
  - Removed hard coded language from SWAP/METS packager. Can now be set
    by setLanguage function.
