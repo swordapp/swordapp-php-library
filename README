@@ -84,6 +84,8 @@ Changes
 -------
 1.1 (dd mmmm yyyy)
  - Added support to set the publisher in pacakger_mets_swap.php
+ - Ensure zip packages are overwritten when created by the packager
+   (Thanks to Andrea Schweer)
 
 1.0 (21 April 2011)
  - Removed hard coded language from SWAP/METS packager. Can now be set
