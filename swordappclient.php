@@ -92,7 +92,7 @@ class SWORDAPPClient {
                         $index = strlen($sac_fname) - $index;
                         $sac_fname_trimmed = substr($sac_fname, $index);
                 } else {
-                        $sac_filename_trimmed = $sac_fname;
+                        $sac_fname_trimmed = $sac_fname;
 	        }
 		array_push($headers, "Content-Disposition: filename=" . $sac_fname_trimmed);
 		curl_setopt($sac_curl, CURLOPT_READDATA, fopen($sac_fname, 'rb'));
