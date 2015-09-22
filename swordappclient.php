@@ -101,8 +101,6 @@ class SWORDAPPClient {
 
 		$sac_resp = curl_exec($sac_curl);
 		$sac_status = curl_getinfo($sac_curl, CURLINFO_HTTP_CODE);
-		dpm($sac_status, 'status');
-		dpm($sac_resp, 'response');
 
 		curl_close($sac_curl);
 
